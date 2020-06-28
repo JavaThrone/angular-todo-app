@@ -8,7 +8,7 @@ Tip 2: you can also add an image using data-image tag
   </a></div>
   <div class="sidebar-wrapper">
     <ul class="nav">
-      <li *ngFor="let category of categories" class="nav-item">
+      <li (click)="showTasksByCategory(category)" *ngFor="let category of categories" class="nav-item">
         <a class="nav-link">
           <p>{{category.title}}</p>
         </a>
