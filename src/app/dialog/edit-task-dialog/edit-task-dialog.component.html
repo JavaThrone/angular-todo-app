@@ -1,0 +1,33 @@
+<mat-dialog-content>
+  <p mat-dialog-title>{{dialogTitle}}</p>
+
+  <mat-form-field>
+    <mat-label>Name (required)</mat-label>
+    <input
+      (keydown.enter)="onConfirm()"
+      [(ngModel)]="tmpTitle"
+      matInput>
+
+    <button
+      (click)="tmpTitle = ''"
+      *ngIf="tmpTitle.trim().length > 0" aria-label="Clear" class="size25" mat-button
+      mat-icon-button matSuffix>
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-form-field>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button
+    (click)="onConfirm()" [disabled]="tmpTitle.trim().length == 0"
+    color="primary"
+    mat-raised-button>
+    Save
+  </button>
+
+  <button (click)="onCancel()" mat-raised-button>Cancel</button>
+
+</mat-dialog-actions>
+
+
