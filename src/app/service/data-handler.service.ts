@@ -7,6 +7,8 @@ import {Category} from '../model/Category';
 import {CategoryDao} from '../data/dao/interface/CategoryDao';
 import {CategoryDaoImpl} from '../data/dao/impl/CategoryDaoImpl';
 import {Priority} from '../model/Priority';
+import {PriorityDao} from '../data/dao/interface/PriorityDao';
+import {PriorityDaoImpl} from '../data/dao/impl/PriorityDaoImpl';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +17,7 @@ export class DataHandlerService {
 
   private taskDao: TaskDao = new TaskDaoImpl();
   private categoryDao: CategoryDao = new CategoryDaoImpl();
+  private priorityDao: PriorityDao = new PriorityDaoImpl();
 
   constructor() {
   }
@@ -27,6 +30,10 @@ export class DataHandlerService {
     return this.categoryDao.getAll();
   }
 
+  getAllPriorities(): Observable<Priority[]> {
+    return this.priorityDao.getAll();
+  }
+
   getCategory(id: number) {
     return this.categoryDao.get(id);
   }
@@ -37,5 +44,9 @@ export class DataHandlerService {
 
   searchTasks(category: Category, searchText: string, status: boolean, priority: Priority): Observable<Task[]> {
     return this.taskDao.search(category, searchText, status, priority);
+  }
+
+  deleteTask(id: number): Observable<Task> {
+    return this.taskDao.delete(id);
   }
 }

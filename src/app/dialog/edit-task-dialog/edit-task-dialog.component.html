@@ -16,6 +16,26 @@
     </button>
   </mat-form-field>
 
+  <mat-form-field>
+    <mat-label>Select category</mat-label>
+    <mat-select [(ngModel)]="tmpCategory">
+      <mat-option [value]="null">Without category</mat-option>
+      <mat-option *ngFor="let cat of categories" [value]="cat">
+        {{cat.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Select priority</mat-label>
+    <mat-select [(ngModel)]="tmpPriority">
+      <mat-option [value]="null">Without priority</mat-option>
+      <mat-option *ngFor="let pri of priorities" [value]="pri">
+        {{pri.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
 </mat-dialog-content>
 
 <mat-dialog-actions>
@@ -28,6 +48,7 @@
 
   <button (click)="onCancel()" mat-raised-button>Cancel</button>
 
+  <button (click)="delete()" class="red" mat-button>Delete task</button>
 </mat-dialog-actions>
 
 

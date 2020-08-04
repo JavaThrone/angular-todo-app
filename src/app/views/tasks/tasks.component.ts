@@ -20,6 +20,8 @@ export class TasksComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<Task>;
   @Output()
   updateTask = new EventEmitter<Task>();
+  @Output()
+  deleteTask = new EventEmitter<Task>();
   tasks: Task[];
   private readonly COMPLETED_TASK_COLOR = '#F8F9FA';
   private readonly DEFAULT_TASK_COLOR = '#fff';
@@ -63,6 +65,12 @@ export class TasksComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(EditTaskDialogComponent, {data: [task, 'Edit task'], autoFocus: false});
 
     dialogRef.afterClosed().subscribe(result => {
+
+      if (result === 'delete') {
+        this.deleteTask.emit(task);
+        return;
+      }
+
       if (result as Task) {
         this.updateTask.emit(task);
         return;

@@ -77,7 +77,9 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12 col-md-12">
-            <app-tasks (updateTask)="onUpdateTask($event)" [tasks]="tasks"></app-tasks>
+            <app-tasks (deleteTask)="onDeleteTask($event)"
+                       (updateTask)="onUpdateTask($event)"
+                       [tasks]="tasks"></app-tasks>
           </div>
         </div>
       </div>
