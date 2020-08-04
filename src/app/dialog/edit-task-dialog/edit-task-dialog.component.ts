@@ -55,7 +55,7 @@ export class EditTaskDialogComponent implements OnInit {
     this.dialogRef.close(null);
   }
 
-  delete() {
+  delete(): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       maxWidth: '500px',
       data: {
@@ -70,5 +70,13 @@ export class EditTaskDialogComponent implements OnInit {
         this.dialogRef.close('delete');
       }
     });
+  }
+
+  complete(): void {
+    this.dialogRef.close('complete');
+  }
+
+  activate(): void {
+    this.dialogRef.close('activate');
   }
 }
