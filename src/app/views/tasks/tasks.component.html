@@ -29,7 +29,7 @@
         <th *matHeaderCellDef mat-header-cell mat-sort-header>Date</th>
         <td *matCellDef="let task" [ngClass]="{'completed': task.completed, 'novalue': task.date == null}"
             class="col-date" mat-cell>
-          {{task.creationDate | date: 'dd-MM-yyyy'}}
+          {{task.creationDate | taskDate}}
         </td>
       </ng-container>
 

@@ -36,6 +36,25 @@
     </mat-select>
   </mat-form-field>
 
+  <mat-form-field>
+    <input #inputDate (click)="picker.open()" [(ngModel)]="tmpCreationDate"
+           [matDatepicker]="picker"
+           matInput
+           placeholder="Select due date"
+
+           readonly="true">
+
+    <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+
+    <mat-datepicker #picker></mat-datepicker>
+
+    <button (click)="tmpCreationDate = null"
+            *ngIf="inputDate.value.trim().length > 0" aria-label="Clear" class="size25" mat-button
+            mat-icon-button matSuffix>
+      <mat-icon>clear</mat-icon>
+    </button>
+
+  </mat-form-field>
 </mat-dialog-content>
 
 <mat-dialog-actions>
