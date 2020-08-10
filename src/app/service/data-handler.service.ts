@@ -42,11 +42,23 @@ export class DataHandlerService {
     return this.taskDao.update(task);
   }
 
+  updateCategory(category: Category): Observable<Category> {
+    return this.categoryDao.update(category);
+  }
+
   searchTasks(category: Category, searchText: string, status: boolean, priority: Priority): Observable<Task[]> {
     return this.taskDao.search(category, searchText, status, priority);
   }
 
   deleteTask(id: number): Observable<Task> {
     return this.taskDao.delete(id);
+  }
+
+  deleteTasksByCategoryId(id: number): Observable<Task> {
+    return this.taskDao.delete(id);
+  }
+
+  deleteCategory(id: number): Observable<Category> {
+    return this.categoryDao.delete(id);
   }
 }
