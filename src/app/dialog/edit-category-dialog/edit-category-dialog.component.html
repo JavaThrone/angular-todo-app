@@ -8,10 +8,10 @@
       [(ngModel)]="tmpTitle"
       matInput maxlength="15">
 
-    <button
-      (click)="tmpTitle = ''"
-      *ngIf="tmpTitle.trim().length > 0" aria-label="Clear" class="size25" mat-button
-      mat-icon-button matSuffix>
+    <button (click)="tmpTitle = ''"
+            *ngIf="tmpTitle.trim().length > 0"
+            aria-label="Clear" class="size25 clear-icon" mat-button
+            mat-icon-button matSuffix>
       <mat-icon>clear</mat-icon>
     </button>
   </mat-form-field>
