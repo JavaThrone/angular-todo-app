@@ -3,9 +3,16 @@ Tip 1: You can change the color of the sidebar using: data-color="purple | azure
 Tip 2: you can also add an image using data-image tag
 -->
 <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
-  <div class="logo"><a class="simple-text logo-normal" href="/">
-    Categories
-  </a></div>
+
+  <div class="logo">
+    <span class="nav-title">Categories</span>
+    <span class="add-icon-area">
+      <button (click)="openAddDialog()" class="add-icon" mat-icon-button>
+        <mat-icon>add</mat-icon>
+      </button>
+    </span>
+  </div>
+
   <div class="sidebar-wrapper">
     <ul class="nav">
       <li (click)="showTasksByCategory(null)" [class.active]="selectedCategory === null" class="nav-item category">

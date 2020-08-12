@@ -9,6 +9,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {ConfirmDialogComponent} from '../../dialog/confirm-dialog/confirm-dialog.component';
 import {Category} from '../../model/Category';
 import {Priority} from '../../model/Priority';
+import {OperationType} from '../../dialog/OperationType';
 
 @Component({
   selector: 'app-tasks',
@@ -34,14 +35,18 @@ export class TasksComponent implements OnInit, AfterViewInit {
   filterByStatus = new EventEmitter<boolean>();
   @Output()
   filterByPriority = new EventEmitter<Priority>();
+  @Output()
+  addTask = new EventEmitter<Task>();
 
   priorities: Priority[];
   tasks: Task[];
   searchTaskText: string;
   selectedStatusFilter: boolean;
+  selectedPriorityFilter: Priority;
+  @Input()
+  selectedCategory: Category;
   private readonly COMPLETED_TASK_COLOR = '#F8F9FA';
   private readonly DEFAULT_TASK_COLOR = '#fff';
-  selectedPriorityFilter: Priority;
 
   constructor(private dataHandler: DataHandlerService,
               private dialog: MatDialog) {
@@ -80,7 +85,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
 
   openEditTaskDialog(task: Task): void {
 
-    const dialogRef = this.dialog.open(EditTaskDialogComponent, {data: [task, 'Edit task'], autoFocus: false});
+    const dialogRef = this.dialog.open(EditTaskDialogComponent, {data: [task, 'Edit task', OperationType.EDIT], autoFocus: false});
 
     dialogRef.afterClosed().subscribe(result => {
 
@@ -148,6 +153,26 @@ export class TasksComponent implements OnInit, AfterViewInit {
     }
   }
 
+  onFilterByPriority(value: Priority) {
+    if (value !== this.selectedPriorityFilter) {
+      this.selectedPriorityFilter = value;
+      this.filterByPriority.emit(this.selectedPriorityFilter);
+    }
+  }
+
+  openAddTaskDialog(): void {
+
+    const task = new Task(null, '', false, null, this.selectedCategory);
+    const dialogRef = this.dialog.open(EditTaskDialogComponent, {data: [task, 'Adding task', OperationType.ADD]});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.addTask.emit(task);
+      }
+    });
+
+  }
+
   private addTableObjects(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
@@ -180,12 +205,5 @@ export class TasksComponent implements OnInit, AfterViewInit {
       }
     };
 
-  }
-
-  onFilterByPriority(value: Priority) {
-    if (value !== this.selectedPriorityFilter) {
-      this.selectedPriorityFilter = value;
-      this.filterByPriority.emit(this.selectedPriorityFilter);
-    }
   }
 }

@@ -28,7 +28,7 @@
     <button (click)="onCancel()" mat-raised-button>Cancel</button>
   </div>
   <div class="col-12 text-center">
-    <button (click)="delete()" class="red" mat-button>Delete category</button>
+    <button (click)="delete()" *ngIf="isDeletable()" class="red" mat-button>Delete</button>
   </div>
 </mat-dialog-actions>
 

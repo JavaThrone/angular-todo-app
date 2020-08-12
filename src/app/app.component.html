@@ -3,6 +3,7 @@
   <app-categories (selectCategory)="onSelectCategory($event)"
                   (deleteCategory)="onDeleteCategory($event)"
                   (updateCategory)="onUpdateCategory($event)"
+                  (addCategory)="onAddCategory($event)"
                   [categories]="categories"
                   [selectedCategory]="selectedCategory"></app-categories>
 
@@ -81,14 +82,16 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12 col-md-12">
-            <app-tasks (deleteTask)="onDeleteTask($event)"
-                       (filterByPriority)="onFilterTasksByPriority($event)"
+            <app-tasks (addTask)="onAddTask($event)"
+                       (deleteTask)="onDeleteTask($event)"
                        (selectCategory)="onSelectCategory($event)"
-
-                       (filterByStatus)="onFilterTasksByStatus($event)"
-                       (filterByTitle)="onSearchTasks($event)"
                        (updateTask)="onUpdateTask()"
 
+                       (filterByPriority)="onFilterTasksByPriority($event)"
+                       (filterByStatus)="onFilterTasksByStatus($event)"
+                       (filterByTitle)="onSearchTasks($event)"
+
+                       [selectedCategory]="selectedCategory"
                        [priorities]="priorities"
                        [tasks]="tasks"
             ></app-tasks>
