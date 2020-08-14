@@ -20,6 +20,9 @@ export class AppComponent implements OnInit {
   statusFilter: boolean;
   priorityFilter: Priority;
   searchCategoryText: string;
+  totalTasksCountInCategory: any;
+  completeCountInCategory: any;
+  uncompletedCountInCategory: any;
 
   constructor(private dataHandler: DataHandlerService) {
   }

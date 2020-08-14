@@ -22,6 +22,11 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {TaskDatePipe} from './pipe/task-date.pipe';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {EditCategoryDialogComponent} from './dialog/edit-category-dialog/edit-category-dialog.component';
+import {FooterComponent} from './views/footer/footer.component';
+import {AboutDialogComponent} from './dialog/about-dialog/about-dialog.component';
+import {HeaderComponent} from './views/header/header.component';
+import {StatisticComponent} from './views/statistic/statistic.component';
+import {StatisticCartComponent} from './views/statistic/statistic-cart/statistic-cart.component';
 
 
 @NgModule({
@@ -32,7 +37,12 @@ import {EditCategoryDialogComponent} from './dialog/edit-category-dialog/edit-ca
     EditTaskDialogComponent,
     ConfirmDialogComponent,
     TaskDatePipe,
-    EditCategoryDialogComponent
+    EditCategoryDialogComponent,
+    FooterComponent,
+    AboutDialogComponent,
+    HeaderComponent,
+    StatisticComponent,
+    StatisticCartComponent
   ],
   imports: [
     BrowserModule,
