@@ -15,6 +15,26 @@ Tip 2: you can also add an image using data-image tag
 
   <div class="sidebar-wrapper">
     <ul class="nav">
+
+      <div class="search-category-area">
+        <mat-form-field class="example-full-width">
+          <input #inputSearchCategory
+                 (keydown.escape)="searchCategoryTitle = ''; search();"
+                 (keyup)="search()"
+                 [(ngModel)]="searchCategoryTitle"
+
+                 matInput
+                 maxlength="256"
+                 placeholder="Search category"/>
+          <button (click)="searchCategoryTitle = ''; search()" *ngIf="inputSearchCategory.value.trim().length > 0"
+                  aria-label="Clear"
+                  class="search-category-button size25 gray"
+                  mat-button mat-icon-button matSuffix>
+            <mat-icon>clear</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+
       <li (click)="showTasksByCategory(null)" [class.active]="selectedCategory === null" class="nav-item category">
         <a class="nav-link pointer">
           <span class="all-category-title">All</span>
@@ -22,6 +42,8 @@ Tip 2: you can also add an image using data-image tag
       </li>
 
       <div class="line"></div>
+
+      <div *ngIf="categories.length === 0"><p class="not-found">Nothing found</p></div>
 
       <li (click)="showTasksByCategory(category)" (mouseenter)="showEditIcon(index)"
           (mouseleave)="showEditIcon(null)"
