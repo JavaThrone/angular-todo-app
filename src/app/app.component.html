@@ -11,15 +11,19 @@
   <div class="main-panel">
 
     <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
-      <app-header></app-header>
+      <app-header (toggleStatistic)="toggleStatistic($event)"
+                  [categoryName]="selectedCategory ? selectedCategory.title: 'All'"
+                  [showStatistic]="showStatistic"
+      ></app-header>
     </nav>
 
     <div class="content">
       <div class="container-fluid">
 
-        <app-statistic [completeTasksInCategory]="completeCountInCategory"
+        <app-statistic [completedTasksInCategory]="completeCountInCategory"
                        [totalTasksInCategory]="totalTasksCountInCategory"
-                       [uncompleteTasksInCategory]="uncompletedCountInCategory"
+                       [showStatistic]="showStatistic"
+                       [uncompletedTasksInCategory]="uncompletedCountInCategory"
         ></app-statistic>
 
         <div class="row">
@@ -27,7 +31,7 @@
             <app-tasks (addTask)="onAddTask($event)"
                        (deleteTask)="onDeleteTask($event)"
                        (selectCategory)="onSelectCategory($event)"
-                       (updateTask)="onUpdateTask()"
+                       (updateTask)="onUpdateTask($event)"
 
                        (filterByPriority)="onFilterTasksByPriority($event)"
                        (filterByStatus)="onFilterTasksByStatus($event)"

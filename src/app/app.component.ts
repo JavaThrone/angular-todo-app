@@ -4,25 +4,32 @@ import {Task} from './model/Task';
 import {Category} from './model/Category';
 import {Priority} from './model/Priority';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+
   title = 'angular-todo-app';
-  selectedCategory: Category = null;
-  selectedTask: Task;
   tasks: Task[];
   categories: Category[];
   priorities: Priority[];
+
+  totalTasksCountInCategory: number;
+  completeCountInCategory: number;
+  uncompletedCountInCategory: number;
+  uncompletedCountTotalTaskCount: number;
+
+  selectedCategory: Category = null;
+
   searchTaskText: string;
+  searchCategoryText: string;
+
   statusFilter: boolean;
   priorityFilter: Priority;
-  searchCategoryText: string;
-  totalTasksCountInCategory: any;
-  completeCountInCategory: any;
-  uncompletedCountInCategory: any;
+  showStatistic: boolean;
 
   constructor(private dataHandler: DataHandlerService) {
   }
@@ -32,21 +39,25 @@ export class AppComponent implements OnInit {
     this.dataHandler.getAllCategories().subscribe(categories => this.categories = categories);
     this.onSelectCategory(null);
     this.searchTaskText = '';
+    this.searchCategoryText = '';
+    this.showStatistic = true;
   }
 
   onSelectCategory(category: Category): void {
     this.selectedCategory = category;
 
-    this.updateTasks();
+    this.updateTasksAndStatistic();
   }
 
-  onUpdateTask(): void {
-    this.updateTasks();
+  onUpdateTask(task: Task): void {
+    this.dataHandler.updateTask(task).subscribe(cat => {
+      this.updateTasksAndStatistic();
+    });
   }
 
   onDeleteTask(task: Task): void {
     this.dataHandler.deleteTask(task.id).subscribe(() => {
-      this.updateTasks();
+      this.updateTasksAndStatistic();
     });
   }
 
@@ -80,7 +91,7 @@ export class AppComponent implements OnInit {
 
   onAddTask(task: Task): void {
     this.dataHandler.addTask(task).subscribe(result => {
-      this.updateTasks();
+      this.updateTasksAndStatistic();
     });
   }
 
@@ -96,6 +107,10 @@ export class AppComponent implements OnInit {
     });
   }
 
+  toggleStatistic(showStatistic: boolean) {
+    this.showStatistic = showStatistic;
+  }
+
   private updateCategories(): void {
     this.dataHandler.getAllCategories().subscribe(categories => this.categories = categories);
   }
@@ -108,6 +123,30 @@ export class AppComponent implements OnInit {
       this.priorityFilter
     ).subscribe((tasks: Task[]) => {
       this.tasks = tasks;
+    });
+  }
+
+  private updateTasksAndStatistic(): void {
+    this.updateTasks();
+
+    this.updateStatistic();
+  }
+
+  private updateStatistic(): void {
+    this.dataHandler.getTotalCountInCategory(this.selectedCategory).subscribe(result => {
+      this.totalTasksCountInCategory = result;
+    });
+
+    this.dataHandler.getCompletedCountInCategory(this.selectedCategory).subscribe(result => {
+      this.completeCountInCategory = result;
+    });
+
+    this.dataHandler.getUncompletedCountInCategory(this.selectedCategory).subscribe(result => {
+      this.uncompletedCountInCategory = result;
+    });
+
+    this.dataHandler.getUncompletedTotalCount().subscribe(result => {
+      this.uncompletedCountTotalTaskCount = result;
     });
   }
 }

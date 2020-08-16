@@ -1,0 +1,36 @@
+<div *ngIf="showStatistic">
+  <div class="row">
+
+    <app-statistic-cart
+      [completed]="true"
+      [count1]="completedTasksInCategory"
+      [countTotal]="totalTasksInCategory"
+      class="col-lg-3 col-md-6 col-sm-6"
+      iconName="done"
+      title="Completed tasks">
+    </app-statistic-cart>
+
+    <app-statistic-cart
+      [count1]="uncompletedTasksInCategory"
+      [countTotal]="totalTasksInCategory"
+      class="col-lg-3 col-md-6 col-sm-6"
+      iconName="thumb_down_alt"
+      title="Uncompleted tasks">
+    </app-statistic-cart>
+
+    <app-statistic-cart
+      [completed]="true"
+      [count1]="completedTasksInCategory ? (completedTasksInCategory / totalTasksInCategory | percent) : '0 %'"
+      class="col-lg-3 col-md-6 col-sm-6 completed-card"
+      iconName="poll"
+      title="Percent completed tasks">
+    </app-statistic-cart>
+
+    <app-statistic-cart
+      [count1]="uncompletedTasksInCategory ? (uncompletedTasksInCategory / totalTasksInCategory | percent) : '0 %'"
+      class="col-lg-3 col-md-6 col-sm-6 completed-card"
+      iconName="thumb_down_alt"
+      title="Percent uncompleted tasks">
+    </app-statistic-cart>
+  </div>
+</div>
